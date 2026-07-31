@@ -1,8 +1,28 @@
 aid: motion
 name: Motion
-description: Motion is a company surfaced as a portfolio company of 500-global, scale-venture-partners,
-  threshold-ventures and added to the API Evangelist network as a stub for enrichment. This profile is
-  a lead awaiting the enrichment pipeline.
+description: >-
+  Motion is a creative analytics platform for performance marketing and creative teams, headquartered
+  in Toronto and founded in 2021 by Reza Khadjavi, Alexander Sloan, and David Berglas. Motion connects a
+  brand's Meta, TikTok, YouTube, and LinkedIn ad accounts — plus Google Analytics 4 and Northbeam
+  attribution — into a single command center where marketers and agencies identify which creative
+  elements drive performance, run comparative and launch analysis, auto-tag ads with AI across multiple
+  dimensions, and research competitor ads via its Inspo tool. The company also offers Runneth by Motion,
+  an AI layer for marketing. Motion serves 2,100+ teams analyzing over $14B in annual ad spend and is
+  backed by Threshold Ventures, Inovia Capital, Headline, Abstract Ventures, and Sugar Capital. Motion
+  does not currently publish a public developer API; it integrates into ad and attribution platforms as
+  an OAuth data consumer.
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/61ba3b439a672312697272c7/68e427f46591f0bafce36ab7_motion_meta_2025.jpg
 url: https://raw.githubusercontent.com/api-evangelist/motion/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -14,9 +34,16 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
+- Creative Analytics
+- Advertising
+- Marketing Analytics
+- Performance Marketing
+- Ad Reporting
+- Creative Strategy
+- SaaS
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -26,3 +53,32 @@ maintainers:
 common:
 - type: Website
   url: https://motionapp.com
+- type: LLMsTxt
+  url: llms/motion-llms.txt
+- type: DomainSecurity
+  url: security/motion-domain-security.yml
+- type: Blog
+  url: https://motionapp.com/blog
+- type: Support
+  url: https://help.motionapp.com/
+- type: Pricing
+  url: https://motionapp.com/pricing
+- type: SignUp
+  url: https://app.motionapp.com/signup
+- type: Login
+  url: https://app.motionapp.com/login
+- type: TermsOfService
+  url: https://motionapp.com/terms
+- type: PrivacyPolicy
+  url: https://motionapp.com/privacy
+- type: ChangeLog
+  url: https://motionapp.com/releases
+- type: Integrations
+  url: https://motionapp.com/integrations
+- type: FAQ
+  url: https://motionapp.com/faq
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 2
+  pass: local-v1

@@ -1,0 +1,90 @@
+generated: '2026-08-12'
+method: searched
+source: https://status.motionapp.com/ + https://motionapp.com/releases + https://help.motionapp.com/en/articles/14315735-motion-mcp
+name: Motion — lifecycle, versioning and operations posture
+versioning:
+  scheme: none-published
+  api_version_in_url: false
+  api_version_header: null
+  note: >-
+    The Motion MCP endpoint is an unversioned URL (https://projects.motionapp.com/mcp). Motion
+    publishes no API versioning policy, no MCP protocol-version pin, and no version-negotiation
+    guidance. A consuming agent has no way to pin behaviour.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notice_period: null
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header usage, and no deprecated-endpoint
+    register is published. The only forward-looking statement found is a product-coverage note in
+    the MCP help article — TikTok, YouTube and LinkedIn "aren't available yet" — which is a roadmap
+    gap, not a deprecation. No Deprecation pointer is emitted in apis.yml.
+status_page:
+  published: true
+  url: https://status.motionapp.com/
+  http_status: 200
+  provider: Atlassian Statuspage
+  machine_readable:
+  - url: https://status.motionapp.com/api/v2/summary.json
+    status: 200
+    content_type: application/json
+    note: Standard Statuspage v2 API — components, incidents and scheduled maintenances.
+  feeds:
+  - url: https://status.motionapp.com/history.rss
+    status: 200
+    type: rss
+  - url: https://status.motionapp.com/feed.rss
+    status: 200
+    type: atom
+  page_id: wmr4z0dd6msr
+  time_zone: America/New_York
+  components:
+  - Facebook API
+  - Microsoft Azure Cloud Services
+  - Motion App
+  - Integrations
+  - Cloud Services
+  - Stripe API
+  - Stripe JS
+  - Expert agents and tasks
+  - Google Analytics
+  covers_mcp: false
+  covers_mcp_note: >-
+    Read from https://status.motionapp.com/api/v2/summary.json on 2026-08-12. None of the nine
+    published components names the MCP server or projects.motionapp.com. A consumer of the Motion
+    MCP has no status component to watch — the closest proxies are "Motion App" and "Cloud
+    Services". Notably the status page monitors Motion's own upstream dependencies (Facebook API,
+    Azure, Stripe, Google Analytics), which is unusually transparent for a SaaS status page.
+sla:
+  published: false
+  note: >-
+    No uptime SLA, support-response SLA, or credit schedule is published. The pricing page attaches
+    support tiers (in-app chat on Starter, dedicated CSM and private Slack on Growth) but no
+    numbers. Growth advertises "advanced security requirements" as a contract-level item.
+changelog:
+  published: true
+  url: https://motionapp.com/releases
+  scheme: dated-product-releases
+  detail: changelog/motion-changelog.yml
+  api_changelog: false
+  api_changelog_note: >-
+    The changelog is a product/feature "What's New" surface. There is no separate API/MCP changelog,
+    so a consumer cannot see when a tool's behaviour or schema changed.
+support:
+  help_centre: https://help.motionapp.com/
+  in_app_chat: true
+  mcp_feedback_channel: >-
+    In-band — a user can ask their AI client to "submit feedback to Motion" and the MCP packages the
+    conversation context and forwards it to Motion's team.
+  contacts:
+  - purpose: privacy
+    email: privacy@motionapp.com
+  - purpose: AI/press/corrections
+    email: james.mulvey@motionapp.com
+    source: https://motionapp.com/llms.txt
+deprecated_operations: []
+deprecated_operations_note: >-
+  Cannot be derived — Motion publishes no OpenAPI, and the live MCP tools/list is OAuth gated so no
+  tool-level deprecation annotation could be read.

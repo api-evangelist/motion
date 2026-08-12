@@ -1,0 +1,55 @@
+generated: '2026-08-12'
+method: searched
+source: https://motionapp.com/releases
+name: Motion — release notes
+scheme: dated-product-releases
+versioned: false
+current_version: null
+current_version_note: >-
+  Motion ships no version numbers. Releases are named features with a publication date; there is no
+  semver, no date-stamped API version, and no version header on the MCP surface.
+url: https://motionapp.com/releases
+feed: null
+feed_note: No RSS/Atom or JSON feed is published for the release notes.
+api_changelog: false
+api_changelog_note: >-
+  There is no API- or MCP-specific changelog. The Motion MCP shipped without a corresponding entry
+  on /releases — the MCP landing page (https://motionapp.com/mcp) and the help-centre article are
+  its only announcements, and neither carries a publication date. A consumer cannot tell when a
+  Motion MCP tool was added, renamed, or changed.
+entry_count: 1
+entry_count_note: >-
+  Motion's public sitemap lists exactly two /releases/* pages. One is a real release; the other,
+  /releases/test-for-presentation, renders with the title "Testing stub" and is an unremoved test
+  page that is nonetheless present in the production sitemap. It is recorded below as a non-entry
+  rather than counted.
+entries:
+- date: '2025-11-10'
+  title: Introducing AI Tagging
+  url: https://motionapp.com/releases/introducing-ai-tagging
+  type: addition
+  breaking: false
+  highlights:
+  - >-
+    AI Tagging automatically watches, analyzes and categorizes every ad in an account, surfacing
+    creative patterns without naming conventions.
+  - >-
+    Ships a fixed 8-category taxonomy — Asset type, Visual format, Messaging angle, Hook tactic,
+    Seasonality, Offer type, Intended audience, Headline tactic — refined over 100+ tests with alpha
+    and beta customers.
+  - New tag values are generated as new creatives launch, rather than from a static list.
+  - Live in every Motion plan out of the box.
+  agent_relevance: >-
+    This is the taxonomy the Motion MCP's get_glossary_values tool returns, and the filter dimension
+    the creative tools accept. Motion states in this release that the taxonomy was "built as a
+    taxonomy that can be understood by both humans and agentic AI systems" — the MCP is the delivery
+    of that stated intent.
+  docs: https://help.motionapp.com/en/articles/12461770-getting-started-with-ai-tagging-in-motion
+non_entries:
+- url: https://motionapp.com/releases/test-for-presentation
+  title: Testing stub
+  http_status: 200
+  note: >-
+    A test page dated the same day as the AI Tagging release, live and listed in
+    https://motionapp.com/sitemap.xml. Recorded as a data-hygiene observation on the provider's
+    surface, not as a release.

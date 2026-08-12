@@ -1,0 +1,124 @@
+generated: '2026-08-12'
+method: searched
+source: https://help.motionapp.com/en/articles/14315735-motion-mcp
+probe_source: live probes of https://projects.motionapp.com/mcp and its /.well-known documents
+name: Motion — cross-cutting API conventions
+scope_note: >-
+  Motion ships exactly one machine-callable surface: the Motion MCP server. There is no REST API, no
+  OpenAPI, no GraphQL endpoint and no webhook API, so the conventions below describe MCP/JSON-RPC
+  semantics rather than HTTP resource semantics. Anything Motion does not publish is recorded as
+  undocumented rather than assumed.
+surfaces:
+- name: Motion MCP
+  url: https://projects.motionapp.com/mcp
+  protocol: MCP over HTTP (JSON-RPC 2.0)
+  gated: true
+authentication:
+  style: oauth2
+  bearer_placement: Authorization header
+  flow: authorization_code + PKCE (S256)
+  dynamic_client_registration: true
+  per_user: true
+  detail: authentication/motion-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key, header, or replay window is published — and the surface is documented as
+    read-only, so there is no mutating operation for an idempotency key to protect. No Idempotency
+    pointer is emitted in apis.yml.
+pagination:
+  style: undocumented
+  note: >-
+    Tools such as get_creative_insights and get_inspo_creatives return ranked/filtered collections
+    and support sorting and date filtering, but no cursor, page, limit or offset parameter is
+    published. Live parameter schemas require an authenticated tools/list call.
+filtering_and_sorting:
+  documented: true
+  sort_metrics:
+  - spend
+  - ROAS
+  - purchases
+  - CPA
+  - CPC
+  - CTR
+  - hook rate
+  - scaling status
+  - purchase value
+  filters:
+  - date range
+  - custom conversion metrics
+  - AI tag values
+  - report type (top ads, creative comparison, sprints)
+  - creative status
+  defaults:
+  - tool: get_demographic_breakdown
+    default_window: last 7 days
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  header: x-request-id
+  observed: true
+  note: Returned on the MCP endpoint's unauthenticated 401. No trace/span header observed.
+versioning:
+  scheme: none-published
+  note: >-
+    The MCP endpoint URL carries no version segment and Motion publishes no MCP protocol-version or
+    API-version policy. The product changelog at https://motionapp.com/releases is date-based, not
+    versioned. See lifecycle/motion-lifecycle.yml.
+error_envelope:
+  format: jsonrpc2
+  shape: '{"jsonrpc":"2.0","error":{"code":<int>,"message":<string>},"id":<id|null>}'
+  problem_json: false
+  detail: errors/motion-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: undocumented
+  detail: rate-limits/motion-rate-limits.yml
+async_semantics:
+  pattern: waiting-then-retry
+  applies_to:
+  - get_creative_insights
+  - get_creative_summary
+  - get_demographic_breakdown
+  note: >-
+    Long-running report generation surfaces to the client as a "waiting" status on the tool result
+    rather than as a 202 + polling URL. There is no published job id, no poll endpoint and no
+    Retry-After. The client is simply expected to retry.
+data_freshness:
+  model: cached-and-pretagged
+  note: >-
+    The MCP reads Motion's own cached, AI-tagged copy of ad data rather than calling Meta/TikTok/etc.
+    live. Motion's stated rationale is that live pass-through calls have gotten customer ad accounts
+    flagged or banned. Consequence for a consumer: results are not real-time, and a newly connected
+    ad account needs hours to appear.
+mutability:
+  read_only: true
+  note: >-
+    Motion states the MCP retrieves data but does not modify the account, creatives, or settings.
+    No write tool is published.
+tenancy:
+  model: user-scoped across all permitted workspaces
+  note: >-
+    One authenticated session spans every organization and workspace the user can see. Workspace
+    selection is conversational ("switch to <workspace name>") rather than a required parameter,
+    which is a real ambiguity risk for a multi-workspace agent.
+crawling_and_agent_policy:
+  robots_txt: 'https://motionapp.com/robots.txt — "User-agent: *  Disallow: /"'
+  robots_status: 200
+  llms_txt: https://motionapp.com/llms.txt
+  llms_txt_status: 200
+  observation: >-
+    Motion's marketing host publishes a detailed, human-maintained llms.txt that invites AI systems
+    to cite it, while its robots.txt disallows all crawling of the same host. The /mcp landing page
+    is also absent from the sitemap. Recorded as an observed contradiction in Motion's stated agent
+    posture, not as a judgement.
+cross_links:
+  authentication: authentication/motion-authentication.yml
+  scopes: scopes/motion-scopes.yml
+  errors: errors/motion-problem-types.yml
+  rate_limits: rate-limits/motion-rate-limits.yml
+  lifecycle: lifecycle/motion-lifecycle.yml
+  mcp: mcp/motion-mcp.yml

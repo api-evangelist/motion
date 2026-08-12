@@ -1,0 +1,154 @@
+generated: '2026-08-12'
+method: probed
+source: live unauthenticated HTTP probes of every Motion host named in apis.yml
+name: Motion — /.well-known discovery probe
+note: >-
+  Motion serves real RFC 8414 / RFC 9728 discovery documents on projects.motionapp.com, the host that
+  runs the Motion MCP server (https://projects.motionapp.com/mcp) and the Motion/Runneth app. The
+  marketing host motionapp.com serves a Webflow catch-all that answers every /.well-known/* path with
+  an "Invalid .well-known request" 404 page. app.motionapp.com sits entirely behind Cloudflare Access
+  and answers HTTP 200 with a "Sign in ・ Cloudflare Access" HTML shell for EVERY path including
+  /.well-known/* — those 200s are NOT documents and are recorded as misses. help.motionapp.com is an
+  Intercom-hosted help centre and the security.txt served there is INTERCOM'S OWN document
+  (Canonical: https://app.intercom.com/.well-known/security.txt, Contact: security@intercom.com), not
+  Motion's; it is recorded here for the record but is NOT credited to Motion and no SecurityTxt
+  pointer is emitted.
+hosts:
+- host: projects.motionapp.com
+  role: Motion MCP server + Motion app (OAuth authorization server)
+  paths:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json; charset=utf-8
+    document: true
+    file: well-known/motion-oauth-protected-resource.json
+    note: RFC 9728 protected-resource metadata; resource = https://projects.motionapp.com/mcp
+  - path: /.well-known/oauth-protected-resource/mcp
+    status: 200
+    content_type: application/json; charset=utf-8
+    document: true
+    file: well-known/motion-oauth-protected-resource.json
+    note: Identical body to the root path (RFC 9728 path-insertion form).
+  - path: /mcp/.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json; charset=utf-8
+    document: true
+    file: well-known/motion-oauth-protected-resource.json
+    note: >-
+      The exact URL advertised in the WWW-Authenticate resource_metadata parameter returned by the
+      MCP endpoint on an unauthenticated 401. Identical body.
+  - path: /api/auth/jwks
+    status: 200
+    content_type: application/json
+    document: true
+    note: >-
+      JWKS advertised by the authorization-server metadata. One Ed25519/EdDSA signing key. Public
+      key material only — not saved to the repo.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json; charset=utf-8
+    document: true
+    file: well-known/motion-oauth-authorization-server.json
+    note: RFC 8414 authorization-server metadata; issuer = https://projects.motionapp.com/api/auth
+  - path: /api/auth/.well-known/openid-configuration
+    status: 200
+    content_type: application/json; charset=utf-8
+    document: true
+    file: well-known/motion-openid-configuration.json
+    note: >-
+      OpenID discovery is served under the issuer prefix, not at the host root. The host-root
+      /.well-known/openid-configuration returns 404. Body is byte-identical to the
+      oauth-authorization-server document.
+  - path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+  - path: /.well-known/agent-card.json
+    status: 404
+    document: false
+  - path: /.well-known/agent.json
+    status: 404
+    document: false
+- host: motionapp.com
+  role: marketing site (Webflow + Strapi)
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    document: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    document: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    document: false
+  - path: /.well-known/api-catalog
+    status: 404
+    document: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    document: false
+  - path: /.well-known/agent-card.json
+    status: 404
+    document: false
+  - path: /.well-known/agent.json
+    status: 404
+    document: false
+  - path: /.well-known/mcp.json
+    status: 404
+    document: false
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain
+    document: true
+    file: llms/motion-llms.txt
+    note: Provider-published llms.txt, saved verbatim.
+- host: app.motionapp.com
+  role: legacy Motion app — entirely behind Cloudflare Access
+  paths:
+  - path: /.well-known/security.txt
+    status: 200
+    document: false
+    note: SPA/gateway catch-all — "Sign in ・ Cloudflare Access" HTML for every path. Not a document.
+  - path: /.well-known/openid-configuration
+    status: 200
+    document: false
+    note: Same Cloudflare Access HTML shell. Not a document.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    document: false
+    note: Same Cloudflare Access HTML shell. Not a document.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    document: false
+    note: Same Cloudflare Access HTML shell. Not a document.
+  - path: /.well-known/agent-card.json
+    status: 200
+    document: false
+    note: Same Cloudflare Access HTML shell. Not an AgentCard. No A2A pointer emitted.
+- host: help.motionapp.com
+  role: Intercom-hosted help centre
+  paths:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    document: true
+    third_party: intercom
+    note: >-
+      Intercom's own security.txt, served by the help-centre vendor on a Motion-branded CNAME.
+      Canonical points at https://app.intercom.com/.well-known/security.txt and Contact is
+      security@intercom.com / bugcrowd.com/intercom. NOT Motion's disclosure programme — not saved,
+      not credited, no SecurityTxt pointer.
+summary:
+  hosts_probed: 4
+  paths_probed: 27
+  real_documents: 4
+  security_txt_published_by_motion: false
+  agent_card_found: false

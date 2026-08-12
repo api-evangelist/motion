@@ -9,19 +9,29 @@ description: >-
   dimensions, and research competitor ads via its Inspo tool. The company also offers Runneth by Motion,
   an AI layer for marketing. Motion serves 2,100+ teams analyzing over $14B in annual ad spend and is
   backed by Threshold Ventures, Inovia Capital, Headline, Abstract Ventures, and Sugar Capital. Motion
-  does not currently publish a public developer API; it integrates into ad and attribution platforms as
-  an OAuth data consumer.
+  publishes no REST API, OpenAPI, GraphQL endpoint or webhook surface; its one machine-callable product
+  is the Motion MCP server at https://projects.motionapp.com/mcp, a read-only OAuth 2.0 Model Context
+  Protocol server exposing 13 documented tools over creative performance, video transcripts, AI tags,
+  demographics, saved reports and the Inspo competitor ad library to Claude, ChatGPT, Cursor and any
+  MCP client.
 accessModel:
-  pricing: unknown
-  onboarding: unknown
-  trial: false
+  pricing: published
+  onboarding: sales-assisted
+  trial: true
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Trial with sales-assisted onboarding
+  confidence: high
+  source:
+  - https://motionapp.com/pricing
+  - https://help.motionapp.com/en/articles/14315735-motion-mcp
+  generated: '2026-08-12'
+  method: searched
+  note: >-
+    Two of four tiers carry a published list price (Starter $750/mo, Pro $1,050/mo); Growth and
+    Motion AI Studio are contact-sales. Every tier's CTA is "Book a demo" — there is no self-serve
+    checkout. A 14-day trial is available, including by signing up mid-way through the Motion MCP
+    OAuth flow. MCP access is included from the Starter tier upward.
 image: https://cdn.prod.website-files.com/61ba3b439a672312697272c7/68e427f46591f0bafce36ab7_motion_meta_2025.jpg
 url: https://raw.githubusercontent.com/api-evangelist/motion/refs/heads/main/apis.yml
 x-type: company
@@ -34,7 +44,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-12'
 tags:
 - Company
 - Creative Analytics
@@ -44,7 +54,46 @@ tags:
 - Ad Reporting
 - Creative Strategy
 - SaaS
-apis: []
+- MCP
+- Agent Surface
+apis:
+- name: Motion MCP
+  description: >-
+    Motion's official hosted remote MCP server. Read-only, OAuth 2.0 gated, and documented with 13
+    tools across six categories — auth context, creative performance (ranked creatives, AI creative
+    summaries, video transcripts, demographic breakdowns), workspace brand and competitor context,
+    the Inspo competitor ad library, saved reports, and the workspace AI Tag taxonomy. Distributed
+    through the Anthropic Claude connector directory and a one-click Cursor install, and connectable
+    from any MCP client with the server URL alone thanks to RFC 7591 dynamic client registration.
+    MCP data coverage is currently Meta only, narrower than Motion's product integrations.
+  humanURL: https://motionapp.com/mcp
+  baseURL: https://projects.motionapp.com/mcp
+  tags:
+  - MCP
+  - Creative Analytics
+  - Advertising
+  - Agent Surface
+  properties:
+  - type: MCPServer
+    url: mcp/motion-mcp.yml
+  - type: Authentication
+    url: authentication/motion-authentication.yml
+  - type: OAuthScopes
+    url: scopes/motion-scopes.yml
+  - type: Conventions
+    url: conventions/motion-conventions.yml
+  - type: ErrorCatalog
+    url: errors/motion-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/motion-rate-limits.yml
+  - type: WellKnown
+    url: well-known/motion-well-known.yml
+  - type: Documentation
+    url: https://help.motionapp.com/en/articles/14315735-motion-mcp
+  - type: APIReference
+    url: https://help.motionapp.com/en/articles/14315735-motion-mcp
+  - type: AgentSkill
+    url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -57,6 +106,34 @@ common:
   url: llms/motion-llms.txt
 - type: DomainSecurity
   url: security/motion-domain-security.yml
+- type: MCPServer
+  url: mcp/motion-mcp.yml
+- type: WellKnown
+  url: well-known/motion-well-known.yml
+- type: Authentication
+  url: authentication/motion-authentication.yml
+- type: OAuthScopes
+  url: scopes/motion-scopes.yml
+- type: Conventions
+  url: conventions/motion-conventions.yml
+- type: ErrorCatalog
+  url: errors/motion-problem-types.yml
+- type: RateLimits
+  url: rate-limits/motion-rate-limits.yml
+- type: Conformance
+  url: conformance/motion-conformance.yml
+- type: Lifecycle
+  url: lifecycle/motion-lifecycle.yml
+- type: StatusPage
+  url: https://status.motionapp.com/
+- type: Plans
+  url: plans/motion-plans-pricing.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Documentation
+  url: https://help.motionapp.com/
+- type: APIReference
+  url: https://help.motionapp.com/en/articles/14315735-motion-mcp
 - type: Blog
   url: https://motionapp.com/blog
 - type: Support
@@ -64,21 +141,25 @@ common:
 - type: Pricing
   url: https://motionapp.com/pricing
 - type: SignUp
-  url: https://app.motionapp.com/signup
+  url: https://projects.motionapp.com/signup
 - type: Login
-  url: https://app.motionapp.com/login
+  url: https://projects.motionapp.com/login
 - type: TermsOfService
   url: https://motionapp.com/terms
 - type: PrivacyPolicy
   url: https://motionapp.com/privacy
 - type: ChangeLog
   url: https://motionapp.com/releases
+- type: ChangeLog
+  url: changelog/motion-changelog.yml
 - type: Integrations
   url: https://motionapp.com/integrations
 - type: FAQ
   url: https://motionapp.com/faq
+- type: Glossary
+  url: https://motionapp.com/glossary
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-12'
   status: enriched
-  artifacts_added: 2
+  artifacts_added: 19
   pass: local-v1

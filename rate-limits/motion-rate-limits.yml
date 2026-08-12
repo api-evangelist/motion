@@ -1,0 +1,68 @@
+generated: '2026-08-12'
+method: searched
+source: https://help.motionapp.com/en/articles/14315735-motion-mcp
+docs: https://help.motionapp.com/en/articles/14315735-motion-mcp
+name: Motion — rate limits
+limit_count: 0
+note: >-
+  Motion publishes no rate limits for the Motion MCP server — no requests-per-window figure, no
+  burst allowance, no documented 429 behaviour, and no rate-limit response headers. This is an
+  honest zero: the MCP help-centre article is Motion's only technical reference for the surface and
+  it covers authentication, permissions, tools, troubleshooting and privacy without ever naming a
+  limit. There is no other public API to document limits for.
+surfaces_checked:
+- url: https://projects.motionapp.com/mcp
+  probe: POST tools/list, unauthenticated
+  http_status: 401
+  rate_limit_headers_observed: []
+  headers_observed:
+  - strict-transport-security
+  - access-control-allow-origin
+  - access-control-expose-headers
+  - www-authenticate
+  - x-request-id
+  - x-powered-by
+  - cf-cache-status
+  - cf-ray
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header appears on the unauthenticated 401. Whether
+    limits are signalled on authenticated responses could not be observed — the surface is OAuth
+    gated and we hold no credentials.
+docs_checked:
+- url: https://help.motionapp.com/en/articles/14315735-motion-mcp
+  status: 200
+  finding: No rate-limit section.
+- url: https://motionapp.com/pricing
+  status: 200
+  finding: >-
+    Tiers are metered on monthly ad spend analyzed, not on request volume. No per-tier call
+    allowance is published.
+- url: https://motionapp.com/llm-info
+  status: 200
+  finding: No rate limits stated.
+throttling_behaviour_documented:
+- mechanism: asynchronous "waiting" response
+  applies_to:
+  - get_creative_insights
+  - get_creative_summary
+  - get_demographic_breakdown
+  description: >-
+    Provider-documented backpressure that is NOT a rate limit but behaves like one to a client:
+    these tools may return a "waiting" status while the underlying report generates, and the client
+    is expected to retry after a short delay. Motion's stated remedy for persistent waiting is to
+    narrow the date range or reduce filters.
+  status_code: null
+  retry_after_header: false
+- mechanism: initial account sync delay
+  description: >-
+    After a new ad-platform data source is connected, performance tools return nothing until the
+    account finishes syncing — "give it a few hours" per the provider. Inspo tools are unaffected.
+upstream_context: >-
+  Motion states the MCP reads its own cached and tagged data rather than making live ad-platform API
+  calls, explicitly to avoid getting customer ad accounts flagged or banned. Meta/TikTok/LinkedIn
+  platform rate limits therefore do not pass through to the MCP consumer.
+observability:
+  request_id_header: x-request-id
+  note: >-
+    An x-request-id is returned on the MCP endpoint (observed on the 401), which is the one runtime
+    correlation signal a consumer can quote to support.

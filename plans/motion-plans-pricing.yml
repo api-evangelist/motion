@@ -1,0 +1,99 @@
+generated: '2026-08-12'
+method: searched
+source: https://motionapp.com/pricing
+name: Motion — plans and pricing
+currency: USD
+billing_period: monthly
+plan_count: 4
+public_pricing: partial
+public_pricing_note: >-
+  Two tiers carry a published list price; two are "Let's chat" / contact-sales. Every tier's CTA is
+  "Book a demo" — there is no self-serve checkout on the pricing page. The metering dimension is
+  monthly ad spend analyzed, not API calls, seats, or ad accounts.
+trial:
+  available: true
+  length_days: 14
+  card_required: false
+  note: >-
+    A 14-day trial is also available by signing up during the Motion MCP OAuth flow, per the MCP
+    help-centre article.
+discrepancy:
+  note: >-
+    Motion's own /llm-info page still states "Starter: $250/month". The live pricing page reads $750
+    /mo for Starter. The pricing page is treated as authoritative and the llm-info figure is recorded
+    here as stale provider copy, not as a second tier.
+  llm_info_url: https://motionapp.com/llm-info
+plans:
+- name: Starter
+  price: 750
+  currency: USD
+  period: month
+  positioning: A 24/7 analyst. Perfect for smaller brands spending up to $50k a month on ads.
+  quota:
+    dimension: monthly ad spend analyzed
+    included: Up to $50k
+  seats: unlimited
+  ad_accounts: unlimited
+  api_access: true
+  api_access_note: 'Verbatim from the pricing page: "Inspo, benchmarks, plus full data & MCP access".'
+  includes:
+  - Your own always-on Motion AI brain (dedicated VM)
+  - Unlimited seats & unlimited ad accounts
+  - AI tags & tasks, ad leaderboard, creative analytics
+  - Pre-watches, tags & analyzes every creative you've run
+  - Inspo, benchmarks, plus full data & MCP access
+  - Ask in Slack; ships briefs, hooks & reports
+  - 'Routines: daily & weekly reports, iteration finders, alerts'
+  - In-app chat support
+  cta: Book a demo
+- name: Pro
+  price: 1050
+  currency: USD
+  period: month
+  positioning: A real AI-enabled operator. For growing brands that spend over $50k a month on ads.
+  quota:
+    dimension: monthly ad spend analyzed
+    included: Over $50k
+  api_access: true
+  includes:
+  - Everything in Starter
+  - Unlimited view-only guests
+  - Attribution integrations (Northbeam, Google Analytics)
+  - First-pass video QA in Slack
+  - Personalized onboarding
+  cta: Book a demo
+- name: Growth
+  price: null
+  price_label: Let's chat
+  currency: USD
+  period: month
+  positioning: An embedded AI team. For high-growth brands that spend over $125k a month on ads.
+  quota:
+    dimension: monthly ad spend analyzed
+    included: Over $125k
+  api_access: true
+  includes:
+  - Everything in Pro
+  - Dedicated CSM and solutions engineering
+  - Closed-loop pipelines built with you, signal to launched ad
+  - Advanced security requirements
+  - Private Slack support
+  cta: Book a demo
+- name: Motion AI Studio
+  price: null
+  price_label: contact sales
+  currency: USD
+  period: null
+  positioning: Fully integrated AI creative strategy system with a workflow builder.
+  api_access: unknown
+  includes:
+  - Personalized setup by the Motion team
+  cta: Book a demo
+overage: undocumented
+overage_note: >-
+  The pricing page states spend bands per tier but does not publish an overage rate or what happens
+  when a workspace exceeds its band; the practical mechanism appears to be moving up a tier.
+legacy_plans:
+  note: >-
+    The MCP help-centre article states that legacy or Custom plans require an upgrade before MCP
+    access is available. Those plans are not published on the pricing page.

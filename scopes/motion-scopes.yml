@@ -1,0 +1,97 @@
+generated: '2026-08-12'
+method: probed
+source: https://projects.motionapp.com/.well-known/oauth-authorization-server
+docs: https://help.motionapp.com/en/articles/14315735-motion-mcp
+name: Motion — OAuth scopes
+note: >-
+  Read straight from Motion's live RFC 8414 authorization-server metadata (HTTP 200) and its RFC 9728
+  protected-resource metadata. Motion publishes NO prose scopes/permissions reference page — the
+  scope list below exists only as machine metadata on the authorization server. Descriptions marked
+  `inferred: true` are our plain reading of the scope string and its OIDC/product context, not
+  provider copy; nothing has been invented beyond what the strings themselves say. There is no
+  OpenAPI to derive from, so derive-oauth-scopes.py was not run.
+authorization_server: https://projects.motionapp.com/api/auth
+protected_resource: https://projects.motionapp.com/mcp
+scope_count: 11
+scopes_advertised_by_authorization_server: 11
+scopes_advertised_by_protected_resource: 4
+discrepancy_note: >-
+  The MCP protected-resource document advertises only the four OIDC/session scopes
+  (openid, profile, email, offline_access). The authorization server advertises seven more —
+  documents:* and runneth:* — which belong to the wider Motion/Runneth app on the same issuer. An
+  MCP client should expect to be granted the four; the rest are the issuer's full surface.
+scopes:
+- scope: openid
+  standard: oidc
+  description: Request an ID token — the OpenID Connect core scope.
+  advertised_on:
+  - authorization-server
+  - protected-resource
+- scope: profile
+  standard: oidc
+  description: >-
+    Access the user's profile claims. The issuer advertises name, picture, family_name and given_name
+    among claims_supported.
+  advertised_on:
+  - authorization-server
+  - protected-resource
+- scope: email
+  standard: oidc
+  description: Access the user's email and email_verified claims.
+  advertised_on:
+  - authorization-server
+  - protected-resource
+- scope: offline_access
+  standard: oidc
+  description: >-
+    Issue a refresh token so the connected AI client can keep the session alive without re-prompting.
+    Backed by the refresh_token grant advertised in grant_types_supported.
+  advertised_on:
+  - authorization-server
+  - protected-resource
+- scope: documents:read
+  description: Read access to documents in the Motion app.
+  inferred: true
+  advertised_on:
+  - authorization-server
+- scope: documents:write
+  description: Write access to documents in the Motion app.
+  inferred: true
+  advertised_on:
+  - authorization-server
+- scope: runneth:documents:read
+  description: Read access to documents within Runneth by Motion, Motion's AI layer for marketing.
+  inferred: true
+  advertised_on:
+  - authorization-server
+- scope: runneth:documents:write
+  description: Write access to documents within Runneth by Motion.
+  inferred: true
+  advertised_on:
+  - authorization-server
+- scope: runneth:mcp
+  description: >-
+    Scope gating MCP access to the Runneth surface. Notable as the only scope string on the issuer
+    that names MCP explicitly.
+  inferred: true
+  advertised_on:
+  - authorization-server
+- scope: runneth:read
+  description: General read access to Runneth by Motion.
+  inferred: true
+  advertised_on:
+  - authorization-server
+- scope: runneth:write
+  description: General write access to Runneth by Motion.
+  inferred: true
+  advertised_on:
+  - authorization-server
+observations:
+- >-
+  No scope in the published list maps to the Motion MCP's 13 creative-analytics tools. The MCP is
+  documented as read-only and authorizes on the user's existing Motion role (Owner/Admin/Collaborator)
+  rather than on a granular creative-analytics scope. A consumer therefore cannot narrow what an AI
+  client may read from their ad data below "everything that user can see in Motion".
+- >-
+  The read/write split exists on the documents:* and runneth:* families but not on the creative
+  analytics surface.

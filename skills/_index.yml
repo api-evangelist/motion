@@ -1,0 +1,48 @@
+generated: '2026-08-12'
+method: generated
+source: https://help.motionapp.com/en/articles/14315735-motion-mcp
+name: Motion — Agent Skills
+note: >-
+  Motion publishes no OpenAPI, so these skills are grounded in the 13 real Motion MCP tool names and
+  the runtime rules Motion documents for them (OAuth gating, role restrictions, Meta-only coverage,
+  read-only, the async "waiting" pattern, and the hard separation between own-account performance
+  data and competitor metadata). No tool name, parameter, or behaviour has been invented; the live
+  inputSchemas are OAuth-gated and are deliberately not asserted here. Motion publishes no skills or
+  AGENTS.md of its own — searched, not found.
+api: Motion MCP
+endpoint: https://projects.motionapp.com/mcp
+skill_count: 3
+skills:
+- name: motion-creative-performance-review
+  file: skills/motion-creative-performance-review.md
+  summary: Explain what is working in a workspace's own paid-social creative and why.
+  operations:
+  - get_auth_context
+  - get_creative_insights
+  - get_glossary_values
+  - get_creative_summary
+  - get_creative_transcript
+  - get_demographic_breakdown
+- name: motion-competitor-teardown
+  file: skills/motion-competitor-teardown.md
+  summary: Reverse-engineer a competitor brand's live creative strategy from Motion's Inspo library.
+  operations:
+  - get_auth_context
+  - get_workspace_competitors
+  - search_brands
+  - get_brand_by_domain
+  - get_inspo_creatives
+  - get_inspo_brand_context
+  - get_glossary_values
+- name: motion-creative-brief-from-data
+  file: skills/motion-creative-brief-from-data.md
+  summary: Write the next round of creative briefs grounded in real performance and brand context.
+  operations:
+  - get_auth_context
+  - get_workspace_brand
+  - get_reports
+  - get_creative_insights
+  - get_glossary_values
+  - get_creative_summary
+  - get_inspo_creatives
+tools_not_yet_covered_by_a_skill: []

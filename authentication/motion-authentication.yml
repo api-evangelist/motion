@@ -1,0 +1,129 @@
+generated: '2026-08-12'
+method: searched
+source: https://help.motionapp.com/en/articles/14315735-motion-mcp
+probe_source: https://projects.motionapp.com/.well-known/oauth-authorization-server
+docs: https://help.motionapp.com/en/articles/14315735-motion-mcp
+name: Motion — authentication profile
+note: >-
+  Motion publishes no OpenAPI, so this profile is not derived from a spec. It is read from Motion's
+  own RFC 8414 authorization-server metadata (fetched live, HTTP 200) plus the Motion MCP help-centre
+  article. Motion ships exactly one machine-callable surface — the Motion MCP server at
+  https://projects.motionapp.com/mcp — and it is OAuth 2.0 only. There is no API key, no personal
+  access token, and no basic-auth path published anywhere on Motion's public surface.
+surfaces:
+- surface: Motion MCP
+  url: https://projects.motionapp.com/mcp
+  scheme: oauth2
+  gated: true
+  observed_challenge:
+    http_status: 401
+    www_authenticate: Bearer resource_metadata="https://projects.motionapp.com/mcp/.well-known/oauth-protected-resource"
+    body: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Missing or invalid Authorization header"},"id":null}'
+security_schemes:
+- name: motion_oauth2
+  type: oauth2
+  bearer_methods_supported:
+  - header
+  issuer: https://projects.motionapp.com/api/auth
+  flows:
+  - flow: authorizationCode
+    authorization_url: https://projects.motionapp.com/api/auth/oauth2/authorize
+    token_url: https://projects.motionapp.com/api/auth/oauth2/token
+    refresh_url: https://projects.motionapp.com/api/auth/oauth2/token
+    pkce_required_methods:
+    - S256
+  - flow: clientCredentials
+    token_url: https://projects.motionapp.com/api/auth/oauth2/token
+  - flow: refreshToken
+    token_url: https://projects.motionapp.com/api/auth/oauth2/token
+endpoints:
+  authorization: https://projects.motionapp.com/api/auth/oauth2/authorize
+  token: https://projects.motionapp.com/api/auth/oauth2/token
+  registration: https://projects.motionapp.com/api/auth/oauth2/register
+  introspection: https://projects.motionapp.com/api/auth/oauth2/introspect
+  revocation: https://projects.motionapp.com/api/auth/oauth2/revoke
+  userinfo: https://projects.motionapp.com/api/auth/oauth2/userinfo
+  end_session: https://projects.motionapp.com/api/auth/oauth2/end-session
+  jwks: https://projects.motionapp.com/api/auth/jwks
+  discovery:
+  - https://projects.motionapp.com/.well-known/oauth-authorization-server
+  - https://projects.motionapp.com/api/auth/.well-known/openid-configuration
+  protected_resource_metadata: https://projects.motionapp.com/mcp/.well-known/oauth-protected-resource
+capabilities:
+  dynamic_client_registration: true
+  dynamic_client_registration_note: >-
+    RFC 7591 registration_endpoint is advertised and token_endpoint_auth_methods_supported includes
+    "none", which is what lets an MCP client register itself and run a public-client PKCE flow with
+    no pre-provisioned credentials. This is why Claude/ChatGPT/Cursor can connect with nothing but
+    the server URL.
+  pkce: true
+  pkce_methods:
+  - S256
+  response_types_supported:
+  - code
+  response_modes_supported:
+  - query
+  grant_types_supported:
+  - authorization_code
+  - client_credentials
+  - refresh_token
+  token_endpoint_auth_methods_supported:
+  - none
+  - client_secret_basic
+  - client_secret_post
+  introspection_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  revocation_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  id_token_signing_alg_values_supported:
+  - EdDSA
+  subject_types_supported:
+  - public
+  authorization_response_iss_parameter_supported: true
+  acr_values_supported:
+  - urn:mace:incommon:iap:bronze
+  prompt_values_supported:
+  - login
+  - consent
+  - create
+  - select_account
+  - none
+  claims_supported:
+  - sub
+  - iss
+  - aud
+  - exp
+  - iat
+  - sid
+  - scope
+  - azp
+  - email
+  - email_verified
+  - name
+  - picture
+  - family_name
+  - given_name
+authorization_model:
+  per_user: true
+  note: >-
+    Authorization is the user's own Motion account authorization — the token carries exactly the
+    workspaces and organizations that user can already see in the app. There is no separate
+    machine/service identity documented for the MCP surface even though client_credentials is
+    advertised by the authorization server.
+  roles_permitted:
+  - Owner
+  - Admin
+  - Collaborator
+  roles_denied:
+  - Guest access
+  - Partner share access
+  credential_handling: >-
+    Provider states the AI client never receives or stores Motion credentials, and that access can be
+    revoked at any time by disconnecting the MCP from the client's settings.
+not_published:
+- API keys or personal access tokens
+- HTTP basic authentication
+- mutual TLS
+- an OpenAPI securitySchemes block (Motion publishes no OpenAPI)

@@ -1,0 +1,52 @@
+generated: '2026-08-12'
+method: searched
+source: >-
+  npm registry search + registry.npmjs.org, pypi.org, rubygems.org, crates.io, api.github.com, and
+  Motion's own docs (help.motionapp.com, motionapp.com/mcp, motionapp.com/integrations)
+name: Motion — client packages and SDKs
+package_count: 0
+official_package_count: 0
+note: >-
+  Motion publishes no client libraries, no CLI, and no first-party packages of any kind. This is an
+  honest zero, not an unchecked field. It is also consistent with Motion's architecture: the only
+  machine-callable surface Motion ships is a remote MCP server that clients reach over HTTP with
+  dynamic client registration, so there is nothing for an SDK to wrap and no install step for a
+  consumer. No SDKs pointer is emitted in apis.yml.
+registries_checked:
+- registry: npm
+  query: registry.npmjs.org/-/v1/search?text=motionapp
+  result: 0 results
+  status: 200
+- registry: npm
+  query: 'direct lookups: motionapp, @motionapp/sdk, motion-app'
+  result: 404 (not found) on each
+- registry: pypi
+  query: 'motionapp, motion-app, motion-creative'
+  result: 404 on each
+- registry: rubygems
+  query: motionapp
+  result: 404
+- registry: crates.io
+  query: motionapp
+  result: 0 crates
+- registry: Maven Central / NuGet / pkg.go.dev / Packagist
+  query: not attempted
+  result: >-
+    Skipped — Motion is a browser SaaS with no published developer program; there is no docs page,
+    GitHub repo, or install instruction anywhere on Motion's surface pointing at any registry.
+github:
+  org: https://github.com/motionapp
+  public_repos: 0
+  note: >-
+    A github.com/motionapp organization exists (created 2020-04-14) with zero public repositories,
+    no name, no description and no blog URL. Nothing links it to Motion Creative Cloud Inc. from
+    either direction, so it is NOT recorded as Motion's GitHub organization and no
+    GitHubOrganization pointer is emitted.
+third_party:
+  note: >-
+    Third-party integration listings for "Motion" exist on automation platforms (Latenode, Make,
+    Unified.to, Activepieces) and several community MCP servers named "motion" are published on npm
+    and GitHub. Every one of those we checked targets usemotion.com — the unrelated AI calendar/task
+    company — not Motion Creative Cloud Inc. None is recorded here. See the disambiguation section
+    of https://motionapp.com/llms.txt, which Motion itself maintains for exactly this reason.
+packages: []

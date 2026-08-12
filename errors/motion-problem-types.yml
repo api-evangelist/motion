@@ -1,0 +1,67 @@
+generated: '2026-08-12'
+method: probed
+source: live POST to https://projects.motionapp.com/mcp (unauthenticated tools/list)
+name: Motion — error catalog
+format: jsonrpc2
+format_note: >-
+  Motion publishes no OpenAPI, so there are no 4xx/5xx response objects to derive from. The one
+  machine-callable surface is the Motion MCP server, whose errors are JSON-RPC 2.0 error objects
+  carried over HTTP. This is NOT RFC 9457 problem+json — there is no application/problem+json media
+  type anywhere on Motion's surface.
+envelope:
+  media_type: application/json
+  shape: '{"jsonrpc":"2.0","error":{"code":<int>,"message":<string>},"id":<id|null>}'
+  fields:
+  - name: error.code
+    type: integer
+    note: JSON-RPC 2.0 code. Motion uses the implementation-defined range (-32000 to -32099) for auth.
+  - name: error.message
+    type: string
+  - name: id
+    type: string|number|null
+    note: null on the observed auth failure, because the request was rejected before dispatch.
+  correlation_header: x-request-id
+  auth_challenge_header: >-
+    WWW-Authenticate on 401, carrying resource_metadata pointing at the RFC 9728 protected-resource
+    document.
+problem_types:
+- code: -32001
+  http_status: 401
+  title: Missing or invalid Authorization header
+  observed: true
+  observed_at: '2026-08-12'
+  observed_body: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Missing or invalid Authorization header"},"id":null}'
+  www_authenticate: Bearer resource_metadata="https://projects.motionapp.com/mcp/.well-known/oauth-protected-resource"
+  remediation: >-
+    Complete the OAuth 2.0 authorization-code + PKCE flow against
+    https://projects.motionapp.com/api/auth and resend with a Bearer token in the Authorization
+    header. Clients may self-register at the advertised registration_endpoint.
+documented_failure_modes:
+  note: >-
+    These are failure modes Motion documents in prose in its MCP help article without publishing a
+    code or an envelope for them. They are recorded as documented behaviours, not as fabricated
+    error codes.
+  modes:
+  - condition: Authenticating user holds Guest access or Partner share access
+    documented_behaviour: The user cannot authenticate or connect to the MCP at all.
+    code: unpublished
+  - condition: Ad-platform data source connected but not yet synced
+    documented_behaviour: Performance tools return no data for a few hours; Inspo tools still work.
+    code: unpublished
+  - condition: Report still generating
+    documented_behaviour: >-
+      Tool returns a "waiting" status; the client is expected to retry after a short delay. Narrow
+      the date range or reduce filters if it persists.
+    code: unpublished
+  - condition: Requesting performance metrics for a competitor brand via Inspo
+    documented_behaviour: >-
+      Not an error — creative metadata is returned without performance metrics by design. Performance
+      is only available for the authenticated workspace's own ads.
+    code: not-applicable
+  - condition: OAuth flow interrupted part-way
+    documented_behaviour: The client reports it cannot access data; remedy is disconnect and reconnect.
+    code: unpublished
+not_published:
+- an error reference page
+- RFC 9457 problem+json
+- a stable error-code vocabulary for tool-level failures

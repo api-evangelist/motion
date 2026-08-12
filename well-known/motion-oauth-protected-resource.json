@@ -1,0 +1,1 @@
+{"resource":"https://projects.motionapp.com/mcp","authorization_servers":["https://projects.motionapp.com/api/auth"],"scopes_supported":["openid","profile","email","offline_access"],"bearer_methods_supported":["header"]}

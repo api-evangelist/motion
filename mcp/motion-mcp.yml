@@ -3,11 +3,10 @@ method: searched
 source: https://help.motionapp.com/en/articles/14315735-motion-mcp
 status: published
 name: Motion MCP
-description: >-
-  Motion's official hosted, remote MCP server. It exposes Motion Creative Analytics — ad creative
-  performance, AI-generated creative summaries and video transcripts, demographic breakdowns,
-  workspace brand and competitor context, the Inspo competitor ad library, saved reports, and the
-  workspace AI Tag taxonomy — as read-only MCP tools to any MCP-compatible client.
+description: Motion's official hosted, remote MCP server. It exposes Motion Creative Analytics — ad creative
+  performance, AI-generated creative summaries and video transcripts, demographic breakdowns, workspace
+  brand and competitor context, the Inspo competitor ad library, saved reports, and the workspace AI Tag
+  taxonomy — as read-only MCP tools to any MCP-compatible client.
 vendor: Motion Creative Cloud Inc.
 endpoint: https://projects.motionapp.com/mcp
 transport: streamable-http
@@ -18,7 +17,7 @@ distribution:
 - channel: Anthropic Claude connector directory
   url: https://claude.ai/directory/connectors/motion
 - channel: Cursor one-click install
-  note: "\"Add to Cursor\" button published inside Motion under My Account → My Integrations."
+  note: '"Add to Cursor" button published inside Motion under My Account → My Integrations.'
 - channel: manual URL
   note: Any MCP client that accepts a server URL.
 clients_documented:
@@ -35,10 +34,9 @@ authentication:
   authorization_server: https://projects.motionapp.com/api/auth
   protected_resource_metadata: https://projects.motionapp.com/mcp/.well-known/oauth-protected-resource
   per_user: true
-  note: >-
-    Each user authenticates individually against their own Motion account; the AI client never
-    receives or stores Motion credentials. Provider states the connection can be revoked at any time
-    from the client's settings.
+  note: Each user authenticates individually against their own Motion account; the AI client never receives
+    or stores Motion credentials. Provider states the connection can be revoked at any time from the client's
+    settings.
 access_control:
   roles_permitted:
   - Owner
@@ -47,13 +45,11 @@ access_control:
   roles_denied:
   - Guest access
   - Partner share access
-  scope_of_data: >-
-    All workspaces across all organizations where the authenticating user has permissions — the same
-    data the user can see in the Motion app.
+  scope_of_data: All workspaces across all organizations where the authenticating user has permissions
+    — the same data the user can see in the Motion app.
   read_only: true
-plan_requirement: >-
-  An active Motion account. Sign-up is possible during the OAuth flow and includes a 14-day trial.
-  The pricing page lists "full data & MCP access" from the Starter tier ($750/mo) upward; the help
+plan_requirement: An active Motion account. Sign-up is possible during the OAuth flow and includes a 14-day
+  trial. The pricing page lists "full data & MCP access" from the Starter tier ($750/mo) upward; the help
   centre notes legacy or Custom plans require an upgrade for MCP access.
 data_source_coverage:
   supported:
@@ -62,25 +58,21 @@ data_source_coverage:
   - TikTok
   - YouTube
   - LinkedIn
-  note: >-
-    Verbatim from the help centre — "Currently, Motion's MCP supports Meta only. TikTok, YouTube,
-    and LinkedIn aren't available yet." Motion's product integrations are broader than its MCP
-    coverage.
+  note: Verbatim from the help centre — "Currently, Motion's MCP supports Meta only. TikTok, YouTube,
+    and LinkedIn aren't available yet." Motion's product integrations are broader than its MCP coverage.
 live_introspection:
   attempted: true
   method: 'POST tools/list (JSON-RPC 2.0) with Accept: application/json, text/event-stream'
   http_status: 401
   response: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Missing or invalid Authorization header"},"id":null}'
   www_authenticate: Bearer resource_metadata="https://projects.motionapp.com/mcp/.well-known/oauth-protected-resource"
-  note: >-
-    The live tool schemas are OAuth-gated. The tools below are transcribed from Motion's own public
-    help-centre documentation (names and behaviour only). inputSchema for each tool requires an
-    authenticated tools/list call and is NOT recorded here — no schema has been invented.
+  note: The live tool schemas are OAuth-gated. The tools below are transcribed from Motion's own public
+    help-centre documentation (names and behaviour only). inputSchema for each tool requires an authenticated
+    tools/list call and is NOT recorded here — no schema has been invented.
 tool_count_documented: 13
 tool_count_claimed: 14
-tool_count_note: >-
-  Motion's help article says "14 tools across six categories" in its introduction but the "Available
-  tools" section says 13 and lists exactly 13. Recorded as an unresolved discrepancy in the
+tool_count_note: Motion's help article says "14 tools across six categories" in its introduction but the
+  "Available tools" section says 13 and lists exactly 13. Recorded as an unresolved discrepancy in the
   provider's own documentation rather than guessing at a 14th tool.
 categories:
 - Auth and context
@@ -93,54 +85,46 @@ tools:
 - name: get_auth_context
   label: Auth Context
   category: Auth and context
-  description: >-
-    Returns your organizations and workspaces. Called automatically as the first step in any session.
-    If you only have one workspace, it's selected by default.
+  description: Returns your organizations and workspaces. Called automatically as the first step in any
+    session. If you only have one workspace, it's selected by default.
 - name: get_creative_insights
   label: Creative Insights
   category: Creative performance
-  description: >-
-    The primary analytics tool. Returns your creatives ranked by performance. Sort by spend, ROAS,
-    purchases, CPA, CPC, CTR, hook rate, scaling status, or purchase value. Supports date filtering,
+  description: The primary analytics tool. Returns your creatives ranked by performance. Sort by spend,
+    ROAS, purchases, CPA, CPC, CTR, hook rate, scaling status, or purchase value. Supports date filtering,
     custom conversion metrics, and AI tag filtering.
   async: true
 - name: get_creative_summary
   label: Creative Summary
   category: Creative performance
-  description: >-
-    Gets an AI-generated digest for a single creative: detected format, plain-language summary, best
-    hook/headline, and CTAs.
+  description: 'Gets an AI-generated digest for a single creative: detected format, plain-language summary,
+    best hook/headline, and CTAs.'
   async: true
 - name: get_creative_transcript
   label: Creative Transcript
   category: Creative performance
-  description: >-
-    Pulls the spoken transcript of a video creative with timed segments. The first 1-3 seconds
-    represent the hook. Includes language detection and English translation for non-English content.
-    Video format only.
+  description: Pulls the spoken transcript of a video creative with timed segments. The first 1-3 seconds
+    represent the hook. Includes language detection and English translation for non-English content. Video
+    format only.
 - name: get_demographic_breakdown
   label: Demographic Breakdown
   category: Creative performance
-  description: >-
-    Breaks down ad performance by age (18-24 through 65+) and gender. Metrics include spend, ROAS,
-    purchase value, cost per purchase, and thumbstop ratio. Defaults to the last 7 days.
+  description: Breaks down ad performance by age (18-24 through 65+) and gender. Metrics include spend,
+    ROAS, purchase value, cost per purchase, and thumbstop ratio. Defaults to the last 7 days.
   async: true
 - name: get_workspace_brand
   label: Workspace Brand
   category: Workspace context
-  description: >-
-    Returns your brand's positioning, voice, and visual identity as configured in Motion.
+  description: Returns your brand's positioning, voice, and visual identity as configured in Motion.
 - name: get_workspace_competitors
   label: Workspace Competitors
   category: Workspace context
-  description: >-
-    Lists the competitor brands you're tracking in Motion: names, domains, categories, follower
-    counts, and active ad counts.
+  description: 'Lists the competitor brands you''re tracking in Motion: names, domains, categories, follower
+    counts, and active ad counts.'
 - name: search_brands
   label: Search Brands
   category: Competitor and brand intelligence (Inspo)
-  description: >-
-    Search for any brand by name or domain. Returns matching brands with IDs, logos, and industry
+  description: Search for any brand by name or domain. Returns matching brands with IDs, logos, and industry
     info. Not limited to tracked competitors.
 - name: get_brand_by_domain
   label: Brand by Domain
@@ -149,48 +133,45 @@ tools:
 - name: get_inspo_creatives
   label: Inspo Creatives
   category: Competitor and brand intelligence (Inspo)
-  description: >-
-    Retrieves creatives from a brand's ad library: format, copy, headline, CTA, launch date, status,
-    days active, landing page, and file URLs. Sort by newest/oldest, filter by date or status, and
-    apply AI tags. Creative metadata only — no performance metrics for other brands.
+  description: 'Retrieves creatives from a brand''s ad library: format, copy, headline, CTA, launch date,
+    status, days active, landing page, and file URLs. Sort by newest/oldest, filter by date or status,
+    and apply AI tags. Creative metadata only — no performance metrics for other brands.'
 - name: get_inspo_brand_context
   label: Inspo Brand Context
   category: Competitor and brand intelligence (Inspo)
-  description: >-
-    Returns deep brand intelligence: positioning, voice, tone, messaging angles, product info, and
-    customer voice analysis.
+  description: 'Returns deep brand intelligence: positioning, voice, tone, messaging angles, product info,
+    and customer voice analysis.'
 - name: get_reports
   label: Reports
   category: Saved reports
-  description: >-
-    Two modes: call without a report ID to list all saved reports, or with a report ID to get the
-    full configuration including filters, attribution windows, metrics, and comparison settings.
-    Supports filtering by report type (top ads, creative comparison, sprints).
+  description: 'Two modes: call without a report ID to list all saved reports, or with a report ID to
+    get the full configuration including filters, attribution windows, metrics, and comparison settings.
+    Supports filtering by report type (top ads, creative comparison, sprints).'
 - name: get_glossary_values
   label: AI Tag Values
   category: AI Tags
-  description: >-
-    Returns your workspace's AI Tags. Common categories include Asset Type, Visual Format, Messaging
-    Angle, Hook Tactic, Headline Tactic, Intended Audience, Seasonality, and Offer Type. Can map tags
-    back to specific creatives and filter to custom or specific categories.
+  description: Returns your workspace's AI Tags. Common categories include Asset Type, Visual Format,
+    Messaging Angle, Hook Tactic, Headline Tactic, Intended Audience, Seasonality, and Offer Type. Can
+    map tags back to specific creatives and filter to custom or specific categories.
 runtime_semantics:
   read_only: true
-  async_pattern: >-
-    Some analytics tools (Creative Insights, Creative Summary, Demographic Breakdown) return a
-    "waiting" status while the underlying report generates; the client is expected to retry after a
-    short delay. Provider guidance on persistent waiting is to narrow the date range or reduce
-    filters.
-  data_freshness: >-
-    The MCP reads Motion's cached and tagged data rather than making live ad-platform API calls.
-    Provider's stated reason: "live calls have been known to get ad accounts flagged or banned."
-    A newly connected ad account needs a few hours to sync before performance tools return results;
-    Inspo tools work immediately.
-  feedback_channel: >-
-    Documented in-band feedback path — asking the client to "submit feedback to Motion" packages the
-    conversation context and sends it to Motion's team.
+  async_pattern: Some analytics tools (Creative Insights, Creative Summary, Demographic Breakdown) return
+    a "waiting" status while the underlying report generates; the client is expected to retry after a
+    short delay. Provider guidance on persistent waiting is to narrow the date range or reduce filters.
+  data_freshness: 'The MCP reads Motion''s cached and tagged data rather than making live ad-platform
+    API calls. Provider''s stated reason: "live calls have been known to get ad accounts flagged or banned."
+    A newly connected ad account needs a few hours to sync before performance tools return results; Inspo
+    tools work immediately.'
+  feedback_channel: Documented in-band feedback path — asking the client to "submit feedback to Motion"
+    packages the conversation context and sends it to Motion's team.
 rate_limits: undocumented
 no_rest_equivalent: true
-no_rest_equivalent_note: >-
-  Motion publishes no public REST API, no OpenAPI, and no webhook API. The MCP server is the only
-  machine-callable product surface Motion ships, so no ToolCrosswalk artifact is emitted — there are
-  no REST operationIds to bind these tools to.
+no_rest_equivalent_note: Motion publishes no public REST API, no OpenAPI, and no webhook API. The MCP
+  server is the only machine-callable product surface Motion ships, so no ToolCrosswalk artifact is emitted
+  — there are no REST operationIds to bind these tools to.
+deployment:
+  mode: remote
+  verified: searched
+  tools: 13
+  checked: '2026-08-12'
+  source: catalog MCP census

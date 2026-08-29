@@ -14,6 +14,17 @@ description: >-
   Protocol server exposing 13 documented tools over creative performance, video transcripts, AI tags,
   demographics, saved reports and the Inspo competitor ad library to Claude, ChatGPT, Cursor and any
   MCP client.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: published
   onboarding: sales-assisted

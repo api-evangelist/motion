@@ -64,6 +64,118 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Motion is a company surfaced as a portfolio company of 500-global, scale-venture-partners, threshold-ventures and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Motion is a creative analytics platform for performance marketing and creative teams, headquartered in Toronto and founded in 2021 by Reza Khadjavi, Alexander Sloan, and David Berglas. Motion connects a brand's Meta, TikTok, YouTube, and LinkedIn ad accounts — plus Google Analytics 4 and Northbeam attribution — into a single command center where marketers and agencies identify which creative elements drive performance, run comparative and launch analysis, auto-tag ads with AI across multiple dimensions, and research competitor ads via its Inspo tool. The company also offers Runneth by Motion, an AI layer for marketing. Motion serves 2,100+ teams analyzing over $14B in annual ad spend and is backed by Threshold Ventures, Inovia Capital, Headline, Abstract Ventures, and Sugar Capital. Motion publishes no REST API, OpenAPI, GraphQL endpoint or webhook surface; its one machine-callable product is the Motion MCP server at https://projects.motionapp.com/mcp, a read-only OAuth 2.0 Model Context Protocol server exposing 13 documented tools over creative performance, video transcripts, AI tags, demographics, saved reports and the Inspo competitor ad library to Claude, ChatGPT, Cursor and any MCP client.
 
-Backed by: 500-global, scale-venture-partners, threshold-ventures — https://motionapp.com
+**Areas:** Company · Creative Analytics · Advertising · Marketing Analytics · Performance Marketing · Ad Reporting · Creative Strategy · Software-as-a-Service · MCP · Agent Surface
+
+## Motion on APIs.io
+
+Everything profiled for Motion is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/motion/](https://apis.io/providers/motion/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Motion MCP](https://apis.io/apis/motion/motion-mcp/) — Motion's official hosted remote MCP server. Read-only, OAuth 2.0 gated, and documented with 13 tools across six categories — auth context, creative…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Motion MCP](https://apis.io/servers/motion/motion-mcp/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Motion Authentication](https://apis.io/security/motion/motion-authentication/)
+- [Motion Domain Security](https://apis.io/security/motion/motion-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Motion Scopes](https://apis.io/scopes/motion/motion-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Motion Plans Pricing](https://apis.io/plans/motion/motion-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Motion Rate Limits](https://apis.io/rate-limits/motion/motion-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://motionapp.com)
+- [Documentation](https://help.motionapp.com/)
+- [API reference](https://help.motionapp.com/en/articles/14315735-motion-mcp)
+- [Pricing](https://motionapp.com/pricing)
+- [Sign up](https://projects.motionapp.com/signup)
+- [Support](https://help.motionapp.com/)
+- [Changelog](https://motionapp.com/releases)
+- [Blog](https://motionapp.com/blog)
+- [Terms of service](https://motionapp.com/terms)
+- [Privacy policy](https://motionapp.com/privacy)
+- [Status](https://status.motionapp.com/)
+
+## API Evangelist rating
+
+**Kin Score 37.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 37.5 |
+| Access clarity | 69.7 |
+
+**Agent readiness 12.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/motion/](https://apis.io/providers/motion/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Motion: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/motion/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
